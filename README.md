@@ -57,12 +57,6 @@
 
 CertifiGen is an automatic generator of certificates of assistance.
 
-<object data="https://github.com/daniprec/certificate-generator/blob/main/certificates/sample.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="https://github.com/daniprec/certificate-generator/blob/main/certificates/sample.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/daniprec/certificate-generator/blob/main/certificates/sample.pdf">Download PDF</a>.</p>
-    </embed>
-</object>
-
 ### Structure
 
 The repository is structured into the following directories:
