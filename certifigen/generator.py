@@ -3,6 +3,7 @@ import os
 import shutil
 import warnings
 
+from typing import Optional
 import PyPDF2
 import typer
 from certifigen.config import load_conf
@@ -11,6 +12,8 @@ from certifigen.config import load_conf
 def generate_certificate(
     name: str,
     fout: str,
+    work: Optional[str] = None,
+    is_plenary_speaker: bool = False,
     path_config: str = "./config.toml",
     path_output: str = "certificates",
     path_tex_template: str = "./main.tex",
@@ -25,6 +28,11 @@ def generate_certificate(
         Name of the participant
     fout : str
         Name of the output file (without 'pdf' termination)
+    work : str, optional
+        Title of the work presented by the participant, if any. By default None
+    is_plenary_speaker : bool, optional
+        Whether the participant is a plenary speaker. It must have a work associated.
+        By default False
     path_config : str, optional
         Path to the config file, by default "./config.toml"
     path_output : str, optional
@@ -34,6 +42,21 @@ def generate_certificate(
     """
     cfg = load_conf(path_config, "certificate")
     cfg.update({"name": name})
+
+    if work is None:
+        text = "."
+    elif is_plenary_speaker:
+        text = (
+            " as a plenary speaker, and presented the talk entitled"
+            "\\begin{center}\\textbf{" + work + "}\\end{center}"
+        )
+    else:
+        text = (
+            ", and presented the contribution entitled"
+            "\\begin{center}\\textbf{" + work + "}\\end{center}"
+        )
+
+    cfg.update({"extra": text})
 
     # Read in the base LaTeX file
     with open(path_tex_template, "r") as file:
@@ -73,12 +96,32 @@ def main(
     path_tex_template: str = "./main.tex",
 ):
     name = "Test Mc. Testing"
-    fout = "test"
+
     if not os.path.exists(path_output):
         os.mkdir(path_output)
+
     generate_certificate(
         name,
-        fout,
+        "test",
+        path_config=path_config,
+        path_output=path_output,
+        path_tex_template=path_tex_template,
+    )
+
+    generate_certificate(
+        name,
+        "test_work",
+        work="Test Work",
+        path_config=path_config,
+        path_output=path_output,
+        path_tex_template=path_tex_template,
+    )
+
+    generate_certificate(
+        name,
+        "test_plenary",
+        work="Test Work",
+        is_plenary_speaker=True,
         path_config=path_config,
         path_output=path_output,
         path_tex_template=path_tex_template,
