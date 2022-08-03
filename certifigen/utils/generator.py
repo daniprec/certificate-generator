@@ -111,7 +111,7 @@ def main(
     path_output: str = "certificates",
     path_tex_template: str = "./main.tex",
 ):
-    name = "Test Mc. Subject"
+    name = "sample Mc. Subject"
     work = "CertifiGen Rocks!"
 
     if not os.path.exists(path_output):
@@ -119,7 +119,7 @@ def main(
 
     generate_certificate(
         name,
-        "test",
+        "sample",
         path_config=path_config,
         path_output=path_output,
         path_tex_template=path_tex_template,
@@ -127,7 +127,7 @@ def main(
 
     generate_certificate(
         name,
-        "test_work",
+        "sample_work",
         work=work,
         path_config=path_config,
         path_output=path_output,
@@ -136,7 +136,7 @@ def main(
 
     generate_certificate(
         name,
-        "test_plenary",
+        "sample_plenary",
         work=work,
         is_plenary_speaker=True,
         path_config=path_config,
