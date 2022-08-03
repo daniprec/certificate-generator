@@ -71,7 +71,7 @@ def generate_certificate(
     list_logos = cfg["path_logo_organizers"]
     text = ""
     width = 10 / max(len(list_logos), 1)
-    for idx, path_logo in list_logos:
+    for idx, path_logo in enumerate(list_logos):
         text += "\\includegraphics[width=" + "%.2f" % width + "cm]{" + path_logo + "}"
         if idx < len(list_logos) - 1:
             text += "\\\\"
@@ -111,7 +111,8 @@ def main(
     path_output: str = "certificates",
     path_tex_template: str = "./main.tex",
 ):
-    name = "Test Mc. Testing"
+    name = "Test Mc. Subject"
+    work = "CertifiGen Rocks!"
 
     if not os.path.exists(path_output):
         os.mkdir(path_output)
@@ -127,7 +128,7 @@ def main(
     generate_certificate(
         name,
         "test_work",
-        work="Test Work",
+        work=work,
         path_config=path_config,
         path_output=path_output,
         path_tex_template=path_tex_template,
@@ -136,7 +137,7 @@ def main(
     generate_certificate(
         name,
         "test_plenary",
-        work="Test Work",
+        work=work,
         is_plenary_speaker=True,
         path_config=path_config,
         path_output=path_output,

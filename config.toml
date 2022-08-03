@@ -14,6 +14,6 @@ host = "Daniel Precioso"
 # Main logo of the conference
 path_logo_conference = "./img/ucadatalab.png"
 # Additional logos, must be a list of paths
-path_logo_organizers = []
+path_logo_organizers = ["./img/ucadatalab.png", "./img/ucadatalab.png"]
 # Signature of the host (recommended png format with transparency)
 path_signature = "./img/signature.png"
