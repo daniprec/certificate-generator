@@ -1,10 +1,19 @@
 [certificate]
-color = "b71a3b"  # HTML format
-title_short = "Symmetries, Invariants, and their Applications"
-title_long = "Symmetries, Invariants, and their Applications"
-place = "University of Dalhousie"
+# Title color in HTML format
+color = "b71a3b"
+# Title of the conference, short style
+title_short = "Certificate Generator"
+# Title of the conference, long style
+title_long = "Certificate Generator"
+# Institution where the conference was held
+place = "University of DaniPrec"
+# Time range of the conference
 duration = "from 3rd to 5th August, 2022"
-host = "Prof. Dr. Robert Milson"
-path_logo_conference = "./img/dalhousie.jpg"
-path_logo_organizers = []  # Must be a list of paths
+# Name of the conference's host, the one giving out these certificates
+host = "Daniel Precioso"
+# Main logo of the conference
+path_logo_conference = "./img/ucadatalab.png"
+# Additional logos, must be a list of paths
+path_logo_organizers = []
+# Signature of the host (recommended png format with transparency)
 path_signature = "./img/signature.png"
