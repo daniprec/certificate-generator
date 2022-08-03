@@ -1,0 +1,70 @@
+\documentclass[12pt,landscape]{article}
+\usepackage[top=1.5cm,bottom=1cm,left=1cm,right=1cm,headsep=10pt,a4paper]{geometry} % Page margins
+\pagestyle{empty}  % No page number
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage[top=1.5cm,bottom=1cm,left=1cm,right=1cm,headsep=10pt,a4paper]{geometry} % Page margins
+\usepackage{graphicx} % Required for including pictures
+
+\usepackage[none]{hyphenat}  % No hyphentation
+\usepackage{scalefnt}
+\usepackage[listings,skins,breakable]{tcolorbox}
+
+
+\usepackage{xcolor} % Required for specifying colors by name
+% colors
+\definecolor{ucaorange}{HTML}{f99200}  % UCA Orange
+\definecolor{ucablue}{HTML}{006690}  % UCA Blue
+\definecolor{ucagrey}{HTML}{76787a}  % UCA Grey
+\definecolor{marcellanred}{HTML}{b71a3b}  % Marcellan Red
+
+\begin{document}
+
+%\vskip 1cm
+
+% Title
+\begin{center}
+{\scalefont{2} \sc \color{marcellanred} $TITLE_SHORT$}\\[5pt]
+{\scalefont{1.5} \sc $PLACE$}\\
+{\scalefont{1.3} \sc $DURATION$}\\
+\end{center}
+
+% Logo
+\begin{center}
+\includegraphics[width=8cm]{$PATH_LOGO_CONFERENCE$}
+\end{center}
+
+%\hskip 10pt
+
+% Text
+\begin{center}
+\begin{minipage}{0.7\textwidth}
+\scalefont{1.5}
+We certify that $NAME$ participated in the ``$TITLE_LONG$'', which took place at the $PLACE$,
+$DURATION$, and presented the contribution entitled
+\begin{center}\textbf{" + title + "}\end{center}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{0.15\textwidth}
+~
+\end{minipage}
+% Signature
+\begin{minipage}{0.4\textwidth}
+\scalefont{1.1}
+\hskip 20pt\includegraphics[width=6cm]{$PATH_SIGNATURE$}\\
+\rule{8cm}{1pt}\\[5pt]
+$HOST$\\
+On behalf of the Organizing Committee
+\end{minipage}
+% Logos
+\begin{minipage}{0.4\textwidth}
+\includegraphics[width=5cm]{$PATH_LOGO_ORGANIZER_A$}\\
+\includegraphics[width=5cm]{$PATH_LOGO_ORGANIZER_B$}
+\end{minipage}
+\end{center}
+
+\end{document}
