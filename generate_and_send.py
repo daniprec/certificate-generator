@@ -4,8 +4,8 @@ from time import sleep
 
 import pandas as pd
 import typer
-from certifigen.utils.email import EmailSender
-from certifigen.utils.generator import generate_certificate
+from certifigen.email import EmailSender
+from certifigen.generator import generate_certificate
 
 COLUMNS_EXPECT = ["name", "mail", "work", "plenary_speaker"]
 
