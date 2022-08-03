@@ -26,8 +26,8 @@ def generate_certificate(
     ----------
     name : str
         Name of the participant
-    fout : str
-        Name of the output file (without 'pdf' termination)
+    fout : str, optional
+        Name of the output file (without 'pdf' termination). By default None
     work : str, optional
         Title of the work presented by the participant, if any. By default None
     is_plenary_speaker : bool, optional
@@ -43,9 +43,12 @@ def generate_certificate(
     fout = name if fout is None else fout
     fout = fout.replace(" ", "_")
 
+    # Load configuration
     cfg = load_conf(path_config, "certificate")
+    # Include participant name in the config
     cfg.update({"name": name})
 
+    # Include extra text in the config (work name and plenary speaker)
     if work is None:
         text = "."
     elif is_plenary_speaker:
@@ -58,12 +61,22 @@ def generate_certificate(
             ", and presented the contribution entitled"
             "\\begin{center}\\textbf{" + work + "}\\end{center}"
         )
-
     cfg.update({"extra": text})
 
     # Read in the base LaTeX file
     with open(path_tex_template, "r") as file:
         filedata = file.read()
+
+    # Include logos of organizers
+    list_logos = cfg["path_logo_organizers"]
+    text = ""
+    width = 10 / max(len(list_logos), 1)
+    for idx, path_logo in list_logos:
+        text += "\\includegraphics[width=" + "%.2f" % width + "cm]{" + path_logo + "}"
+        if idx < len(list_logos) - 1:
+            text += "\\\\"
+    filedata = filedata.replace("$LOGO_ORGANIZERS$", text)
+    cfg.pop("path_logo_organizers", None)
 
     # Replace the text in the certificate
     for key, value in cfg.items():
