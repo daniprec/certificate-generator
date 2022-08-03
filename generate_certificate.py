@@ -1,12 +1,12 @@
 import os
-from certifigen.utils.generator import generate_certificate
+from certifigen.generator import generate_certificate
 import typer
 
 
 def main(
     path_config: str = "./config.toml",
     path_output: str = "certificates",
-    path_tex_template: str = "./main.tex",
+    path_tex_template: str = "./certifigen/main.tex",
 ):
     # Create the "certificates" folder
     if not os.path.exists(path_output):

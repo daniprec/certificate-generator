@@ -20,7 +20,7 @@
     <img src="img/ucadatalab.png" alt="Logo" width="auto" height="60">
   </a>
 
-  <h3 align="center">CERTIFICATE OF ASSISTANCE GENERATOR</h3>
+  <h3 align="center">CERTIFIGEN</h3>
 </p>
 
 
@@ -43,6 +43,11 @@
       </ul>
     </li>
     <li>
+      <a href="#how-to-use-certifigen">How to use CertifiGen</a>
+      <ul>
+        <li><a href="#modify-the-certificate">Modify the Certificate</a></li>
+      </ul>
+    </li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
@@ -50,7 +55,13 @@
 
 ## About the Project
 
-Automatic generator of certificates of assistance.
+CertifiGen is an automatic generator of certificates of assistance.
+
+<object data="https://github.com/daniprec/certificate-generator/blob/main/certificates/sample.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="https://github.com/daniprec/certificate-generator/blob/main/certificates/sample.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/daniprec/certificate-generator/blob/main/certificates/sample.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
 
 ### Structure
 
@@ -94,6 +105,32 @@ Add abstract dependency to `setup.py`. If neccessary, add version requirements b
 
 - Update `requirements.txt`: `pip-compile --extra dev > requirements.txt`
 - Update environment: `pip-sync`
+
+## How to use CertifiGen
+
+Once you have completed the [Getting started](#getting-started), you are ready to go!
+
+First, activate the CertifiGen environment with the following command:
+
+```
+conda activate certifigen
+```
+
+You can do a test certificate by running:
+
+```
+python generate_certificate.py
+```
+
+The script will ask you to provide the participant name, its work and whether if they were a plenary speaker. Then, a sample certificate will be created inside the [certificates folder](./certificates/).
+
+### Modify the certificate
+
+All the certificate relevant information is stored in the [config file](./config.toml). You can open and modify this file with any text editor. Inside the file there is a brief description of what things can be changed in the certificate.
+
+Remember that, to change the logos and signatures, you must provide new image files. We recommend to store them in the [images folder](./img/).
+
+Once you are content with the new certificate information, try to generate one new sample certificate as explained above!
 
 ## Contact
 

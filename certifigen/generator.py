@@ -6,7 +6,7 @@ import warnings
 from typing import Optional
 import PyPDF2
 import typer
-from certifigen.utils.config import load_conf
+from certifigen.config import load_conf
 
 
 def generate_certificate(
@@ -16,7 +16,7 @@ def generate_certificate(
     is_plenary_speaker: bool = False,
     path_config: str = "./config.toml",
     path_output: str = "certificates",
-    path_tex_template: str = "./main.tex",
+    path_tex_template: str = "./certifigen/main.tex",
 ):
     """Generates a pdf certificate using as template 'main.tex',
     and replacing any '$TEXT$' it has with `text`.
@@ -38,7 +38,7 @@ def generate_certificate(
     path_output : str, optional
         Output folder, by default "certificates"
     path_tex_template : str, optional
-        Path to the template tex file, by default "./main.tex"
+        Path to the template tex file, by default "./certifigen/main.tex"
     """
     fout = name if fout is None else fout
     fout = fout.replace(" ", "_")
@@ -109,7 +109,7 @@ def generate_certificate(
 def main(
     path_config: str = "./config.toml",
     path_output: str = "certificates",
-    path_tex_template: str = "./main.tex",
+    path_tex_template: str = "./certifigen/main.tex",
 ):
     name = "sample Mc. Subject"
     work = "CertifiGen Rocks!"
