@@ -4,8 +4,8 @@ from time import sleep
 
 import pandas as pd
 import typer
-from certifigen.email import EmailSender
-from certifigen.generator import generate_certificate
+from certifigen.utils.email import EmailSender
+from certifigen.utils.generator import generate_certificate
 
 COLUMNS_EXPECT = ["name", "mail", "work", "plenary_speaker"]
 
@@ -61,5 +61,5 @@ def main(path_csv: str):
         sleep(1)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     typer.run(main)
