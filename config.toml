@@ -1,0 +1,10 @@
+[certificate]
+title_short = "International Conference on Orthogonal Polynomials"
+title_long = "International Conference on Orthogonal Polynomials (Celebrating Francisco Marcellán's 70th birthday)"
+place = "University of Cádiz"
+duration = "from 21st to 23rd April, 2022"
+host = "Prof. Dr. David Gómez-Ullate"
+path_logo_conference = "./img/ucadatalab.png"
+path_logo_organizer_a = "./img/ucadatalab.png"
+path_logo_organizer_b = "./img/ucadatalab.png"
+path_signature = "./img/ucadatalab.png"
