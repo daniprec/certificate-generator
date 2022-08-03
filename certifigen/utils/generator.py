@@ -6,12 +6,12 @@ import warnings
 from typing import Optional
 import PyPDF2
 import typer
-from certifigen.config import load_conf
+from certifigen.utils.config import load_conf
 
 
 def generate_certificate(
     name: str,
-    fout: str,
+    fout: Optional[str] = None,
     work: Optional[str] = None,
     is_plenary_speaker: bool = False,
     path_config: str = "./config.toml",
@@ -40,6 +40,9 @@ def generate_certificate(
     path_tex_template : str, optional
         Path to the template tex file, by default "./main.tex"
     """
+    fout = name if fout is None else fout
+    fout = fout.replace(" ", "_")
+
     cfg = load_conf(path_config, "certificate")
     cfg.update({"name": name})
 
