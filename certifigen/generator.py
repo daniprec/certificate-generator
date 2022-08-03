@@ -21,19 +21,16 @@ def generate_certificate(
 
     Parameters
     ----------
-    text : str
-        Text to include in the pdf
+    name : str
+        Name of the participant
     fout : str
         Name of the output file (without 'pdf' termination)
+    path_config : str, optional
+        Path to the config file, by default "./config.toml"
     path_output : str, optional
         Output folder, by default "certificates"
     path_tex_template : str, optional
         Path to the template tex file, by default "./main.tex"
-
-    Raises
-    ------
-    ValueError
-        Raises error when the certificate has more than one page
     """
     cfg = load_conf(path_config, "certificate")
     cfg.update({"name": name})
@@ -57,7 +54,7 @@ def generate_certificate(
     try:
         shutil.move(f"{fout}.pdf", f"{path_output}/{fout}.pdf")
     except FileNotFoundError as er:
-        print(f"[ERROR] File failed: {fout}\nText: {text}\nError: {er}")
+        print(f"[ERROR] File failed: {fout}\nError: {er}")
 
     # Remove all other byproducts from LaTeX
     for filename in glob.glob(f"{fout}*"):
