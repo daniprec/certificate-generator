@@ -46,6 +46,7 @@
       <a href="#how-to-use-certifigen">How to use CertifiGen</a>
       <ul>
         <li><a href="#modify-the-certificate">Modify the Certificate</a></li>
+        <li><a href="#implementing-certifigen">Implementing CertifiGen</a></li>
       </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
@@ -125,6 +126,66 @@ All the certificate relevant information is stored in the [config file](./config
 Remember that, to change the logos and signatures, you must provide new image files. We recommend to store them in the [images folder](./img/).
 
 Once you are content with the new certificate information, try to generate one new sample certificate as explained above!
+
+### Implementing CertifiGen
+
+Once you have modified the [config file](./config.toml), running CertifiGen is fairly easy if you know some basic Python programming. This is how a code to generate one certificate would look like:
+
+```python
+from certifigen.generator import generate_certificate
+
+# Name of the participant
+name_of_participant = "Daniel Precioso"
+# Filename of the certificate
+filename = "daniel"  # The output will be "daniel.pdf"
+# Title of the work presented by this partipant (if any)
+work_title = "CertifiGen"
+# Was the participant a plenary speaker
+is_plenary_speaker = True
+# Path to the config file (see section above)
+# You usually wont need to provide this parameter
+path_config = "./config.toml"
+# Path where the certificates are stored
+# Ensure you have created a folder with this name
+path_output = "./certificates"
+# Path to the LaTeX template
+# You usually wont need to provide this parameter
+path_tex_template = "./certifigen/main.tex"
+
+# Generate the certificate
+generate_certificate(
+  name_of_participant,
+  fout=filename,
+  work=work_title,
+  is_plenary_speaker=is_plenary_speaker,
+  path_config=path_config,
+  path_output=path_output,
+  path_tex_template=path_tex_template,
+)
+```
+
+Use the code above as template to do your own implementations. For instance, lets suppose that we have the list of participants in a txt file, and we want to generate a basic certificate for each one. Then we could do:
+
+```python
+from certifigen.generator import generate_certificate
+
+# Path to the list of participants
+path_participants = "./participants.txt"
+# Path where the certificates are stored
+# Ensure you have created a folder with this name
+path_output = "./certificates"
+
+# Read the list
+# We assume one name per line
+with open(path_participants) as f:
+    list_names = [s.rstrip("\n") for s in f.readlines()]
+
+# Generate the certificates
+for name in list_names:
+    generate_certificate(name, path_output=path_output)
+```
+
+You can find these and other use cases in the [examples](./examples/) folder.
 
 ## Contact
 
