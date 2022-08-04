@@ -78,9 +78,15 @@ def generate_certificate(
     # Include logos of organizers
     list_logos = cfg["path_logo_organizers"]
     text = ""
-    width = 4 / max(len(list_logos), 1)
+    height = 4 / max(len(list_logos), 1)
     for idx, path_logo in enumerate(list_logos):
-        text += "\\includegraphics[height=" + "%.2f" % width + "cm]{" + path_logo + "}"
+        text += (
+            "\\includegraphics[width=8cm,height="
+            + "%.2f" % height
+            + "cm,keepaspectratio]{"
+            + path_logo
+            + "}"
+        )
         if idx < len(list_logos) - 1:
             text += "\\\\"
     filedata = filedata.replace("$LOGO_ORGANIZERS$", text)
