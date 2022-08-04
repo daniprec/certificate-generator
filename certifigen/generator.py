@@ -13,6 +13,7 @@ def generate_certificate(
     name: str,
     fout: Optional[str] = None,
     work: Optional[str] = None,
+    note: Optional[str] = None,
     is_plenary_speaker: bool = False,
     path_config: str = "./config.toml",
     path_output: str = "certificates",
@@ -30,6 +31,8 @@ def generate_certificate(
         Name of the output file (without 'pdf' termination). By default None
     work : str, optional
         Title of the work presented by the participant, if any. By default None
+    note : str, optional
+        Extra note at the end of the certificate. By default None
     is_plenary_speaker : bool, optional
         Whether the participant is a plenary speaker. It must have a work associated.
         By default False
@@ -48,7 +51,7 @@ def generate_certificate(
     # Include participant name in the config
     cfg.update({"name": name})
 
-    # Include extra text in the config (work name and plenary speaker)
+    # Include contribution text in the config (work name and plenary speaker)
     if work is None:
         text = "."
     elif is_plenary_speaker:
@@ -61,6 +64,11 @@ def generate_certificate(
             ", and presented the contribution entitled"
             "\\begin{center}\\textbf{" + work + "}\\end{center}"
         )
+
+    # Include extra footnote
+    if note is not None:
+        text += f"\n{note}"
+
     cfg.update({"extra": text})
 
     # Read in the base LaTeX file
