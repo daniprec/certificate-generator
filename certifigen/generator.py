@@ -11,6 +11,7 @@ from certifigen.config import load_conf
 
 def generate_certificate(
     name: str,
+    institution: Optional[str] = None,
     fout: Optional[str] = None,
     work: Optional[str] = None,
     note: Optional[str] = None,
@@ -27,6 +28,8 @@ def generate_certificate(
     ----------
     name : str
         Name of the participant
+    institution : str, optional
+        Institution of the participant, if any. By default None
     fout : str, optional
         Name of the output file (without 'pdf' termination). By default None
     work : str, optional
@@ -50,6 +53,8 @@ def generate_certificate(
     cfg = load_conf(path_config, "certificate")
     # Include participant name in the config
     cfg.update({"name": name})
+    # Include institution name in the config
+    cfg.update({"institution": "" if institution is None else "from " + institution})
 
     # Include contribution text in the config (work name and plenary speaker)
     if work is None:
