@@ -14,11 +14,7 @@ COLUMNS_OPTIONAL = ["institution"]
 
 def remove_accents(text: str) -> str:
     """Replaces accented characters with their unaccented equivalent"""
-    return (
-        unicodedata.normalize("NFKD", text)
-        .encode("ascii", "ignore")
-        .decode("ascii")
-    )
+    return unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
 
 
 def main(path_csv: str):
@@ -48,7 +44,7 @@ def main(path_csv: str):
     # Generate the certificates for each participant
     for idx, row in df.iterrows():
         # Relevant participant information
-        name = row["name"]#.upper()
+        name = row["name"]  # .upper()
         mail = row["mail"]
         try:
             user = mail.split("@")[0].strip()
@@ -59,7 +55,7 @@ def main(path_csv: str):
         if len(user) == 0:
             user = name.lower()
         user = remove_accents(user)
-        
+
         # Get the work title
         work = row["work"]
         # Certificate of poster presentation or talk
