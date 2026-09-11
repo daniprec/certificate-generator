@@ -28,7 +28,6 @@ def main(
     # Generate the certificate
     generate_certificate(
         name,
-        name,
         work=work,
         is_plenary_speaker=is_plenary_speaker,
         path_config=path_config,

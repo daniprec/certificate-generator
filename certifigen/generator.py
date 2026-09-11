@@ -77,11 +77,11 @@ def generate_certificate(
     cfg.update({"extra": text})
 
     # Read in the base LaTeX file
-    with open(path_tex_template, "r") as file:
+    with open(path_tex_template, "r", encoding="utf-8") as file:
         filedata = file.read()
 
-    # Include logos of organizers
-    list_logos = cfg["path_logo_organizers"]
+    # Include logos of organizers (leave blank if none configured)
+    list_logos = cfg["path_logo_organizers"] or []
     text = ""
     height = 4 / max(len(list_logos), 1)
     for idx, path_logo in enumerate(list_logos):
@@ -102,11 +102,11 @@ def generate_certificate(
         filedata = filedata.replace(f"${key.upper()}$", value)
 
     # Write the file out again
-    with open(f"{fout}.tex", "w") as file:
+    with open(f"{fout}.tex", "w", encoding="utf-8") as file:
         file.write(filedata)
 
     # Build LaTeX
-    os.system(f"pdflatex {fout}.tex")
+    os.system(f"pdflatex -interaction=nonstopmode {fout}.tex")
 
     # Move the certificate to the folder
     try:
@@ -120,8 +120,8 @@ def generate_certificate(
 
     # Ensure the certificate is only one page long
     file = open(f"{path_output}/{fout}.pdf", "rb")
-    readpdf = PyPDF2.PdfFileReader(file)
-    if readpdf.numPages > 1:
+    readpdf = PyPDF2.PdfReader(file)
+    if len(readpdf.pages) > 1:
         warnings.warn(f"[WARNING] Number of pages greater than 1: {fout}")
 
 
