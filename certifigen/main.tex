@@ -23,26 +23,31 @@
 
 % Title
 \begin{center}
-{\scalefont{2} \sc \color{customcolor} $TITLE_SHORT$}\\[5pt]
-{\scalefont{1.5} \sc $PLACE$}\\
-{\scalefont{1.3} \sc $DURATION$}\\
+{\scalefont{1.8} \bfseries \color{customcolor} $TITLE_LONG$}\\[8pt]
+{\scalefont{1.5} \bfseries Certificate of Attendance}\\[15pt]
 \end{center}
 
 % Logo
 \begin{center}
-\includegraphics[width=8cm,height=4cm,keepaspectratio]{$PATH_LOGO_CONFERENCE$}
+\includegraphics[width=7cm,height=3.5cm,keepaspectratio]{$PATH_LOGO_CONFERENCE$}
 \end{center}
 
 %\hskip 10pt
 
 % Text
 \begin{center}
-\begin{minipage}{0.7\textwidth}
-\scalefont{1.5}
-We certify that $NAME$ $INSTITUTION$ participated in the ``$TITLE_LONG$'', which took place at the $PLACE$,
-$DURATION$ $EXTRA$
+\begin{minipage}{0.75\textwidth}
+\scalefont{1.4}
+\centering
+This is to certify that\\[8pt]
+\textbf{$NAME$ $INSTITUTION$}\\[8pt]
+attended the\\[8pt]
+\textbf{$TITLE_LONG$,}\\[6pt]
+held on $DURATION$, $PLACE$$EXTRA$
 \end{minipage}
 \end{center}
+
+\vfill
 
 \begin{center}
 \begin{minipage}{0.15\textwidth}
@@ -51,10 +56,10 @@ $DURATION$ $EXTRA$
 % Signature
 \begin{minipage}{0.4\textwidth}
 \scalefont{1.1}
-\hskip 20pt\includegraphics[width=8cm,height=3cm,keepaspectratio]{$PATH_SIGNATURE$}\\
-\rule{8cm}{1pt}\\[5pt]
-$HOST$\\
-On behalf of the Organizing Committee
+\centering
+From the Organising Committee\\[10pt]
+\includegraphics[width=8cm,height=3cm,keepaspectratio]{$PATH_SIGNATURE$}\\
+\textbf{$HOST$}
 \end{minipage}
 % Logos
 \begin{minipage}{0.4\textwidth}

@@ -8,6 +8,24 @@ import PyPDF2
 import typer
 from certifigen.config import load_conf
 
+LATEX_SPECIAL_CHARS = {
+    "&": "\\&",
+    "%": "\\%",
+    "$": "\\$",
+    "#": "\\#",
+    "_": "\\_",
+    "{": "\\{",
+    "}": "\\}",
+    "~": "\\textasciitilde{}",
+    "^": "\\textasciicircum{}",
+}
+
+
+def escape_latex(text: str) -> str:
+    """Escapes LaTeX special characters in `text` so it can be safely
+    inserted into the certificate template"""
+    return "".join(LATEX_SPECIAL_CHARS.get(char, char) for char in text)
+
 
 def generate_certificate(
     name: str,
@@ -52,22 +70,32 @@ def generate_certificate(
     # Load configuration
     cfg = load_conf(path_config, "certificate")
     # Include participant name in the config
-    cfg.update({"name": name})
+    cfg.update({"name": escape_latex(name)})
     # Include institution name in the config
-    cfg.update({"institution": "" if institution is None else "from " + institution})
+    cfg.update(
+        {
+            "institution": ""
+            if institution is None
+            else "(" + escape_latex(institution) + ")"
+        }
+    )
 
     # Include contribution text in the config (work name and plenary speaker)
     if work is None:
         text = "."
     elif is_plenary_speaker:
         text = (
-            " as a plenary speaker, and presented the talk entitled"
-            "\\begin{center}\\textbf{" + work + "}\\end{center}"
+            ", and, as a plenary speaker, gave the talk\\\\[8pt]\n"
+            "\\begin{center}\\textbf{\u201c"
+            + escape_latex(work)
+            + "\u201d.}\\end{center}"
         )
     else:
         text = (
-            ", and presented the contribution entitled"
-            "\\begin{center}\\textbf{" + work + "}\\end{center}"
+            ", and gave the talk\\\\[8pt]\n"
+            "\\begin{center}\\textbf{\u201c"
+            + escape_latex(work)
+            + "\u201d.}\\end{center}"
         )
 
     # Include extra footnote
