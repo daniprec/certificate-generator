@@ -8,6 +8,7 @@ from certifigen.email import EmailSender
 from certifigen.generator import generate_certificate
 
 COLUMNS_EXPECT = ["name", "mail", "work", "plenary_speaker"]
+COLUMNS_OPTIONAL = ["institution"]
 
 
 def main(path_csv: str):
@@ -32,17 +33,22 @@ def main(path_csv: str):
         email = EmailSender(sender, password)
     except:
         print("Could not connect to email. Generating certificates anyway.")
+        email = None
 
     # Generate the certificates for each participant
     for idx, row in df.iterrows():
         # Relevant participant information
-        name = row["name"].upper()
+        name = row["name"]#.upper()
         mail = row["mail"]
         try:
-            user = mail.split("@")[0]
+            user = mail.split("@")[0].strip()
         except AttributeError:
             print(f"[ERROR] No email for {name}")
-            user = name.replace(" ", "-")
+            user = ""
+
+        if len(user) == 0:
+            user = name.lower()
+        
         # Get the work title
         work = row["work"]
         # Certificate of poster presentation or talk
@@ -52,13 +58,21 @@ def main(path_csv: str):
         else:
             work = None
             is_plenary_speaker = False
+        # Institution is optional
+        institution = row["institution"] if "institution" in df.columns else None
         generate_certificate(
-            name, user, work=work, is_plenary_speaker=is_plenary_speaker
+            name,
+            institution=institution,
+            fout=user,
+            work=work,
+            is_plenary_speaker=is_plenary_speaker,
         )
-        # Send the email with the attached pdf
-        email.send_email_pdf(f"certificates/{user}.pdf", mail)
-        # Wait a second between each email
-        sleep(1)
+        if email is not None:
+            print(f"Sending email to {mail}...")
+            # Send the email with the attached pdf
+            email.send_email_pdf(f"certificates/{user}.pdf", mail)
+            # Wait a second between each email
+            sleep(1)
 
 
 if __name__ == "__main__":
