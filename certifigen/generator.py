@@ -74,9 +74,9 @@ def generate_certificate(
     # Include institution name in the config
     cfg.update(
         {
-            "institution": ""
-            if institution is None
-            else "(" + escape_latex(institution) + ")"
+            "institution": (
+                "" if institution is None else "(" + escape_latex(institution) + ")"
+            )
         }
     )
 
