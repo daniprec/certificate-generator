@@ -1,4 +1,5 @@
 import os
+import unicodedata
 from getpass import getpass
 from time import sleep
 
@@ -9,6 +10,15 @@ from certifigen.generator import generate_certificate
 
 COLUMNS_EXPECT = ["name", "mail", "work", "plenary_speaker"]
 COLUMNS_OPTIONAL = ["institution"]
+
+
+def remove_accents(text: str) -> str:
+    """Replaces accented characters with their unaccented equivalent"""
+    return (
+        unicodedata.normalize("NFKD", text)
+        .encode("ascii", "ignore")
+        .decode("ascii")
+    )
 
 
 def main(path_csv: str):
@@ -48,6 +58,7 @@ def main(path_csv: str):
 
         if len(user) == 0:
             user = name.lower()
+        user = remove_accents(user)
         
         # Get the work title
         work = row["work"]
