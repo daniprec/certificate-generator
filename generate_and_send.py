@@ -46,18 +46,12 @@ def main(path_csv: str):
         # Relevant participant information
         name = row["name"]  # .upper()
         mail = row["mail"]
-        try:
-            user = mail.split("@")[0].strip()
-        except AttributeError:
-            print(f"[ERROR] No email for {name}")
-            user = ""
-
-        if len(user) == 0:
-            user = name.lower()
-        user = remove_accents(user)
+        filename = remove_accents(name.lower()).replace(" ", "_")
 
         # Get the work title
         work = row["work"]
+        if pd.isna(work):
+            work = ""
         # Certificate of poster presentation or talk
         if len(work) > 0:
             is_plenary_speaker = row["plenary_speaker"]
@@ -70,14 +64,14 @@ def main(path_csv: str):
         generate_certificate(
             name,
             institution=institution,
-            fout=user,
+            fout=filename,
             work=work,
             is_plenary_speaker=is_plenary_speaker,
         )
         if email is not None:
             print(f"Sending email to {mail}...")
             # Send the email with the attached pdf
-            email.send_email_pdf(f"certificates/{user}.pdf", mail)
+            email.send_email_pdf(f"certificates/{filename}.pdf", mail)
             # Wait a second between each email
             sleep(1)
 
